@@ -97,7 +97,7 @@ var WR={"1":["أدرار",1100,600],"2":["الشلف",700,400],"3":["الأغو�
 var G=[['','الكل'],['كاسكيطة','🧢 كاسكيطات'],['بيري','بيري'],['دوكر','دوكر'],['توبيك','توبيك'],['غوتشي','Gucci'],['لويس','Louis Vuitton'],['نيويورك','NY'],['LA','LA'],['نايك','Nike'],['بولو','Polo'],['لاكوست','Lacoste'],['ديور','Dior'],['برادا','Prada'],['فندي','Fendi'],['شبكة','شبكة']];
 var CF='',CAT=[],CP=0,MORE=true,LOAD=false,CART=[],CM={},OPEN=false;
 var st=document.createElement('style');st.textContent=
-'#navbar .cart-btn,.main-content,.announcement-bar,#dzfxBar,#dzhwBtn,.dzhw-launcher,footer{display:none!important}body{background:#f4f5f7!important}'+
+'#navbar{padding:8px 0!important}#navbar .mobile-menu-btn{font-size:22px!important;padding:2px 6px!important;line-height:1!important;height:auto!important}#navbar .store-logo{line-height:1.1}#navbar .cart-btn,.main-content,.announcement-bar,#dzfxBar,#dzhwBtn,.dzhw-launcher,footer{display:none!important}body{background:#f4f5f7!important}'+
 '#zs{direction:rtl;width:100%;min-width:0;max-width:640px;align-self:center;margin:0 auto;font-size:14px;font-family:inherit}#zs *{box-sizing:border-box}'+
 '#zs-top{position:sticky;z-index:900;background:#f4f5f7;padding:6px 6px 4px}'+
 '#zs-ch{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}#zs-ch::-webkit-scrollbar{display:none}'+
@@ -134,7 +134,7 @@ function nextT(n){for(var i=0;i<TIERS.length;i++)if(n<TIERS[i][0])return TIERS[i
 function ui(){var nb=document.getElementById('navbar'),w=document.createElement('div');w.id='zs';
 w.innerHTML='<div id="zs-top"><div id="zs-ch">'+G.map(function(g){return'<button data-g="'+esc(g[0])+'"'+(g[0]==CF?' class="on"':'')+'>'+g[1]+'</button>'}).join('')+'</div><div id="zs-bar"></div></div><div id="zs-g"><div id="zs-more">⏳</div></div>';
 var mc=document.querySelector('.main-content');(mc&&mc.parentNode?mc.parentNode.insertBefore(w,mc):document.body.appendChild(w));
-function top(){var h=nb&&getComputedStyle(nb).position.match(/fixed|sticky/)?nb.offsetHeight:0;$('zs-top').style.top=h+'px';var sp=document.querySelector('.navbar-spacer-mobile,.navbar-spacer');w.style.paddingTop=(nb&&getComputedStyle(nb).position=='fixed'&&!(sp&&sp.offsetHeight)?nb.offsetHeight:0)+'px'}top();setTimeout(top,500);
+function top(){var s0=document.querySelector('.navbar-spacer-mobile');if(nb&&s0&&s0.offsetHeight)s0.style.height=nb.offsetHeight+'px';var h=nb&&getComputedStyle(nb).position.match(/fixed|sticky/)?nb.offsetHeight:0;$('zs-top').style.top=h+'px';var sp=document.querySelector('.navbar-spacer-mobile,.navbar-spacer');w.style.paddingTop=(nb&&getComputedStyle(nb).position=='fixed'&&!(sp&&sp.offsetHeight)?nb.offsetHeight:0)+'px'}top();setTimeout(top,500);
 $('zs-ch').onclick=function(e){var b=e.target.closest('[data-g]');if(!b)return;CF=b.dataset.g;[].forEach.call(this.children,function(x){x.className=x.dataset.g==CF?'on':''});CAT=[];CP=0;MORE=true;LOAD=false;$('zs-g').innerHTML='<div id="zs-more">⏳</div>';obs();load();scrollTo({top:0,behavior:'smooth'})};
 $('zs-bar').onclick=cartSheet;
 $('zs-g').onclick=function(e){var a=e.target.closest('.ad'),f=e.target.closest('.inf');if(a)add(+a.dataset.id,a);if(f)info(+f.dataset.id)};

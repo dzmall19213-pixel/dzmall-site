@@ -198,6 +198,7 @@ var d=e.target.closest('.pad');if(d){var id=+d.dataset.pid;add(id,d);setTimeout(
 var f=e.target.closest('.pi');if(f)info(+f.dataset.pid)})}
 function info(id){var p=CAT.filter(function(x){return x.id==id})[0];var s=sheet('<div style="text-align:center;padding:30px">⏳</div>','pop');
 (PD&&PM&&id==+PM[1]?Promise.resolve(PD.documentElement.outerHTML):fetch('/product/'+id).then(function(r){return r.text()})).then(function(t){var d=new DOMParser().parseFromString(t,'text/html');var imgs=[];[].forEach.call(d.querySelectorAll('.main-swiper img'),function(i){var u=i.getAttribute('data-src')||i.getAttribute('src')||'';if(u&&imgs.indexOf(u)<0&&imgs.length<8)imgs.push(u)});
+/*OOS*/if(/product:availability"\s+content="out of stock"/i.test(t)){s.remove();return toast('هاذ الموديل نفد 😔 شوف الموديلات المتوفرة')}
 if(!p){var nm=((d.querySelector('meta[property="og:title"]')||{}).content||d.title||'').replace(/\s*-\s*DZ Mall\s*$/,'');var pr=+((t.match(/"price"\s*:\s*"?([\d.]+)/)||[])[1])||0;var op=+((((d.querySelector('.old-price')||{}).textContent)||'').replace(/\D/g,''))||0;var st=+((t.match(/Stock":(\d+)/)||[])[1]);if(!pr||st===0){s.remove();return toast('هاذ المنتج نفد 😔 شوف موديلات أخرى')}p={id:+id,name:nm,price:pr,old:op,img:imgs[0]||'',max:st||5};CAT.push(p)}
 if(!imgs.length)imgs=[p.img];
 var de=(d.querySelector('meta[name="description"]')||{}).content||'';var dd=d.querySelector('.product-description')||d.querySelector('.description-text');var desc=dd&&dd.textContent.trim().length>20?dd.innerHTML:esc(de);
